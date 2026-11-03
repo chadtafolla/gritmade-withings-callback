@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Gritmade · WHOOP</title>
+<style>
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0d0d0f;color:#9090a0;font:14px/1.5 ui-monospace,Menlo,monospace}
+  a{color:#3b8beb}
+</style>
+</head>
+<body>
+<!--
+  Like the Withings page one level up: WHOOP must reach a public HTTPS callback URL, but the Gritmade server runs on localhost.
+  This page is that public URL: it forwards the browser, with WHOOP's ?code=&state= intact,
+  to the local server, which exchanges the code using the secret that never leaves your machine.
+  Host it anywhere static (GitHub Pages, your own site) and put its exact URL in .env
+  and in the WHOOP dashboard's Redirect URLs (as WHOOP_REDIRECT_URI).
+-->
+<p id="msg">Connecting to Gritmade…</p>
+<script>
+  var target = 'http://localhost:3003/api/whoop/callback' + location.search;
+  document.getElementById('msg').innerHTML =
+    'Connecting to Gritmade… <a href="' + target.replace(/"/g, '&quot;') + '">continue</a>';
+  if (location.search) location.replace(target);
+</script>
+</body>
+</html>
